@@ -28,7 +28,11 @@ public class TestMunicipioAbitante {
 			
 			// testFindAllByCognome(municipioService, abitanteService);
 			
-			testFindAllByCodiceMunicipioIniziaCon(municipioService, abitanteService);
+			// testFindAllByCodiceMunicipioIniziaCon(municipioService, abitanteService);
+			
+			testFindAllByAbitantiMinorenni(municipioService,abitanteService);
+			
+			// testFindAllByDescrizioneIniziaCon(municipioService, abitanteService);
 			
 			/*testInserisciMunicipio(municipioService);
 			System.out.println(
@@ -220,6 +224,41 @@ public class TestMunicipioAbitante {
 		
 		for(Abitante a : result)
 			System.out.println(a);
+	}
+	
+	private static void testFindAllByAbitantiMinorenni(MunicipioService municipioService,AbitanteService abitanteService) throws Exception {
+		
+		List<Municipio> listaMunicipiPresenti = municipioService.listAllMunicipi();
+		if (listaMunicipiPresenti.isEmpty())
+			throw new RuntimeException("testFindAllByCognome fallito: non ci sono municipi a cui collegarci ");
+		
+		List<Abitante> listaAbitantiPresenti = abitanteService.listAllAbitanti();
+		if(listaAbitantiPresenti.isEmpty())
+			throw new Exception("TestFindAllByCognome fallito: non ci sono abitanti.");
+		
+		List<Municipio> result = municipioService.cercaTuttiIMunicipiConMinorenni();
+				
+		for(Municipio m : result)
+		System.out.println(m);
+	}
+	
+	private static void testFindAllByDescrizioneIniziaCon(MunicipioService municipioService,AbitanteService abitanteService) throws Exception {
+		
+		List<Municipio> listaMunicipiPresenti = municipioService.listAllMunicipi();
+		if (listaMunicipiPresenti.isEmpty())
+			throw new RuntimeException("testFindAllByCognome fallito: non ci sono municipi a cui collegarci ");
+		
+		List<Abitante> listaAbitantiPresenti = abitanteService.listAllAbitanti();
+		if(listaAbitantiPresenti.isEmpty())
+			throw new Exception("TestFindAllByCognome fallito: non ci sono abitanti.");
+		
+		String descrizione = "Mu";
+		
+		List<Municipio> result = municipioService.findAllByDescrizioneIniziaCon(descrizione);
+		
+		for(Municipio m : result)
+			System.out.println(m);
+		
 	}
 	
 }

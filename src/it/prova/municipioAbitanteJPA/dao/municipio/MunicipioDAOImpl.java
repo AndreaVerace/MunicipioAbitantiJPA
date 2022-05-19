@@ -67,14 +67,13 @@ public class MunicipioDAOImpl implements MunicipioDAO {
 	// TO DO PER ESERCIZIO
 	@Override
 	public List<Municipio> findAllByAbitantiMinorenni() throws Exception {
-		return entityManager.createQuery("from Municipio m inner join m.abitanti where eta < 18",Municipio.class).getResultList();
-		
+		return entityManager.createQuery("select distinct m from Municipio m join m.abitanti a where a.eta < 18",Municipio.class).getResultList();	
 	}
 
 	@Override
 	public List<Municipio> findAllByDescrizioneIniziaCon(String iniziale) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Municipio> query = entityManager.createQuery("from Municipio where descrizione like ?1", Municipio.class);
+		return query.setParameter(1, iniziale + "%").getResultList(); 
 	}
 
 }
